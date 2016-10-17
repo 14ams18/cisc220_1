@@ -1,1 +1,59 @@
+#!/bin/bash
 
+clear
+echo "Welcome to CISC220 Racing Arena!"
+echo "User 1 press 1 to move forward, user 2 press 2 and user 3 press 3."
+clear
+finish=0
+counter1=0
+counter2=0
+counter3=0
+reverse1=40
+reverse2=40
+reverse3=40
+echo "|->                                        # Lane 1 #"
+echo -e "\n""|->                                        # Lane 2 #"
+echo -e "\n""|->                                        # Lane 3 #"
+
+while [[ $finish -eq  0 ]] ; do
+	read -s -n1  move
+	clear	
+	if [[ $move -eq 1 ]] ; then
+		counter1=$(($counter1+1))
+		reverse1=$((40-$counter1))
+	elif [[ $move -eq  2 ]] ; then
+		counter2=$(($counter2+1))
+                reverse2=$((40-$counter2))
+	elif [[ $move -eq 3 ]] ; then
+		counter3=$(($counter3+1))
+                reverse3=$((40-$counter3))
+	fi 
+
+        eval printf '~%.0s' {0..$counter1}
+	echo -n  "|->"
+        space1=$(printf "%-${reverse1}s" " ")
+	echo -n "${space1// / }" 
+        echo -n  "# Lane 1 #"
+        echo -e "\n"
+        eval printf '~%.0s' {0..$counter2}
+        echo -n "|->"
+        space2=$(printf "%-${reverse2}s" " ")
+        echo -n "${space2// / }"
+        echo -n "# Lane 2 #"
+        echo -e "\n"
+        eval printf '~%.0s' {0..$counter3}
+        echo -n "|->"
+        space3=$(printf "%-${reverse3}s" " ")
+        echo -n "${space3// / }"
+        echo -n "# Lane 3 #"
+							
+	if [[ $counter1 -eq 40 ]] ; then
+		finish=1
+	elif [[ $counter2 -eq 40 ]] ; then
+		finish=2
+	elif [[ $counter3 -eq 40 ]] ; then
+		finish=3
+	fi
+done
+
+echo -e "\n""Congratulations Player $finish won!!"
