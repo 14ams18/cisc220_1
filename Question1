@@ -1,28 +1,59 @@
 #!/bin/bash
-valid=false
-while
-while (valid==false); do
-  echo "Enter a number: "; read num1
-  if [[ $num1 == ?(-)+([0-9]) ]]; then
-    echo "is a number"; valid=true
-  elif [[ num1==":q" ]]; then
-    break
-  fi
+
+validNum1=false
+re='-?^[0-9]+([.][0-9]+)?$'
+
+while [[ !$validNum1 ]]; do
+ 	read -p "Enter a number: " num1
+  	if [[ "$num1"==":q" ]]; then
+		break
+ 	fi
+  	if ! [[ "$num1" =~ "$re" ]]; then
+		validNum1=true
+  	else
+		echo "Error! Please insert a number."
+  	fi
 done
-valid=false
-while (valid==false); do
-  echo "Enter an operation: "; read operation
-  if [[$operation=="+" || $operation=="-" || $operation=="*" || $operation=="/" ]]
-    echo "is a valid operation"; valid=true
-  elif [[ operation==":q" ]]; then
-    break
-  fi
+
+result=$num1
+validResult=false
+count=0
+
+while [[ !$validResult ]] ; do
+	if [[ "$count"=="0" ]]; then
+		validOp=false
+		while [[ !$validOp ]] ; do
+		read -p "Enter an operation" operation
+		if [[ "$operation"==":q" ]]; then
+        		validResult=true
+  		fi
+  		if [[ "$operation" == "+" || "$operation" == "-" || "$operation" == "*" || "$operation" == "/" ]]
+        		validOp=true
+			count=1
+  		else
+        		echo "Error! Please insert an operation."
+  		fi
+		done
+
+	fi
+	if [[ "$count"=="0" ]]; then	
+		validNum=false
+		while [[ !$validNum ]]; do
+  	      	read -p "Enter a number: " num1
+        	if [[ "$num1"==":q" ]]; then
+                	validResult=true
+        	fi
+        	if ! [[ "$num1" =~ "$re" ]]; then
+                	validNum=true
+			count=0
+        	else
+                	echo "Error! Please insert a number."
+      	  	fi
+		done
+	fi
+	result=$(($result $operation $num))
 done
-valid=false
-while (valid==false); do
-  echo "Enter a number: "; read num2
-  if [[ $num2 == ?(-)+([0-9]) ]]; then
-    echo "is a number"; valid=true
-  fi
-done
+
+
+
 echo "Thanks for using my calculator!"
