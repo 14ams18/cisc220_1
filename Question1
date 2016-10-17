@@ -1,16 +1,21 @@
 #!bin/bash
 valid=false
+while
 while (valid==false); do
   echo "Enter a number: "; read num1
   if [[ $num1 == ?(-)+([0-9]) ]]; then
     echo "is a number"; valid=true
+  elif [[ num1==":q" ]]; then
+    break
   fi
 done
 valid=false
 while (valid==false); do
   echo "Enter an operation: "; read operation
-  if [[$operation=+ || $operation=- || $operation=* || $operation=/ ]]
+  if [[$operation=="+" || $operation=="-" || $operation=="*" || $operation=="/" ]]
     echo "is a valid operation"; valid=true
+  elif [[ operation==":q" ]]; then
+    break
   fi
 done
 valid=false
@@ -20,3 +25,4 @@ while (valid==false); do
     echo "is a number"; valid=true
   fi
 done
+echo "Thanks for using my calculator!"
