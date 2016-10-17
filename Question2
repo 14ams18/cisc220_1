@@ -1,7 +1,7 @@
-#!bin/bash
+#!/bin/bash
 IPs=$(ifconfig | awk '/inet addr/{print substr($2,6)}' )
 firstIP=$(echo $IPs | awk '{print $1}')
-secondIP=$(echo $IPs | awk '{print $}')
+secondIP=$(echo $IPs | awk '{print $2}')
 if [[ $firstIP == 127* ]]; then
   echo "${firstIP} Local IP"
 elif [[ $firstIP == 10* || $firstIP == 192.168* ]]; then
