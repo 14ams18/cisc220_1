@@ -1,2 +1,4 @@
 #!bin/bash
-ifconfig |grep -e "inet addr:" | xargs -d ':' | awk '{ print $3}' |  
+IPs=$(ifconfig | awk '/inet addr/{print substr($2,6)}' )
+firstIP=$(echo $IPs | awk '{print $1}')
+secondIP=$(echo $IPs | awk '{print $}')
