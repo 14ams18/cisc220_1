@@ -1,1 +1,13 @@
-
+#!bin/bash
+valid=false
+while (valid==false); do
+  echo "Enter a number: "; read num1
+  if [[$num1##[0-9]*]]; then
+    echo "is a number"; valid=true
+  fi
+done
+valid=false
+while (valid==false); do
+  echo "Enter an operation: "; read operation
+  if [[$operation=+ || $operation=- || $operation=* || $operation=/ ]]
+done
