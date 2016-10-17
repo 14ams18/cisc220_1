@@ -1,0 +1,54 @@
+#!/bin/bash
+total=0
+valid=0
+while [[ $valid == 0 ]]; do
+	read -p "Please enter a number:" num1 
+	if [[ $num1 == ":q" ]]; then
+		echo Thanks for using my calculator; exit 1
+	elif [[ $num1 =~ ^-?[0-9]+$ ]]; then
+		valid=1
+		total=$num1
+	else
+		printf "Error! "
+	fi
+done
+while true; do
+	valid=0
+	while [[ $valid == 0 ]]; do
+		read -p "Please enter an operation:" operation
+		if [[ $operation == ":q" ]]; then
+			echo Thanks for using my calculator; exit 1
+		elif [[ $operation == "+" ]]; then
+			valid=1
+		elif [[ $operation == "-" ]]; then
+			valid=1
+		elif [[ $operation == "*" ]]; then
+			valid=1
+		elif [[ $operation == "/" ]]; then 
+			valid=1
+		else
+			printf "Error! "
+		fi	
+	done
+	valid=0
+	while [[ $valid == 0 ]]; do
+		read -p "Please enter a number:" num1
+		if [[ $num1 == ":q" ]]; then
+			echo Thanks for using my calculator; exit 1
+		elif [[ $num1 =~ ^-?[0-9]+$ ]]; then
+			valid=1
+		else
+			printf "Error! "
+		fi
+	done
+	if [[ $operation == "+" ]]; then
+		total=$(($total + $num1))
+	elif [[ $operation == "-" ]]; then
+		total=$(($total - $num1))
+	elif [[ $operation == "*" ]]; then
+		total=$(($total * $num1))
+	elif [[ $operation == "/" ]]; then
+		total=$(($total / $num1)) 
+	fi
+	echo "Result so far is: ${total}"
+done
