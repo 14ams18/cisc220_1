@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 valid=false
 while
 while (valid==false); do
