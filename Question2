@@ -1,2 +1,2 @@
 #!bin/bash
-ifconfig |grep -e "inet addr:" | awk '{ print $2}' | 
+ifconfig |grep -e "inet addr:" | xargs -d ':' | awk '{ print $3}' |  
