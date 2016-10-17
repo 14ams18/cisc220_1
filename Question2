@@ -3,9 +3,16 @@ IPs=$(ifconfig | awk '/inet addr/{print substr($2,6)}' )
 firstIP=$(echo $IPs | awk '{print $1}')
 secondIP=$(echo $IPs | awk '{print $}')
 if [[ $firstIP == 127* ]]; then
-  echo "Local IP"
+  echo "${firstIP} Local IP"
 elif [[ $firstIP == 10* || $firstIP == 192.168* ]]; then
-  echo "Private IP"
+  echo "${firstIP} Private IP"
 else
-  echo "Public IP"
+  echo "${firstIP} Public IP"
+fi
+if [[ $secondIP == 127* ]]; then
+  echo "${secondIP} Local IP"
+elif [[ $secondIP == 10* || $secondIP == 192.168* ]]; then
+  echo "${secondIP} Private IP"
+else
+  echo "${secondIP} Public IP"
 fi
