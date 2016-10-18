@@ -1,28 +1,59 @@
 #!/bin/bash
-valid=false
-while
-while (valid==false); do
-  echo "Enter a number: "; read num1
-  if [[ $num1 == ?(-)+([0-9]) ]]; then
-    echo "is a number"; valid=true
-  elif [[ num1==":q" ]]; then
-    break
-  fi
+run=1
+total=0
+valid=0
+while [[ $valid == 0 ]]; do
+	read -p "Please enter a number:" num1 
+	echo $num1
+	if [[ $num1 == ":q" ]]; then
+		echo Thanks for using my calculator; exit 1
+	elif [[ $num1 =~ ^-?[0-9]+$ ]]; then
+		valid=1
+		total=$num1
+		echo "You entered ${num1}"
+	else
+		printf "Error! "
+	fi
 done
-valid=false
-while (valid==false); do
-  echo "Enter an operation: "; read operation
-  if [[$operation=="+" || $operation=="-" || $operation=="*" || $operation=="/" ]]
-    echo "is a valid operation"; valid=true
-  elif [[ operation==":q" ]]; then
-    break
-  fi
+while [[ $run == "1" ]]; do
+	valid=0
+	while [[ $valid == 0 ]]; do
+		read -p "Please enter an operation:" operation
+		echo $operation
+		if [[ $operation == ":q" ]]; then
+			echo Thanks for using my calculator; exit 1
+		elif [[ $operation == "+" ]]; then
+			valid=1
+		elif [[ $operation == "-" ]]; then
+			valid=1
+		elif [[ $operation == "*" ]]; then
+			valid=1
+		elif [[ $operation == "/" ]]; then 
+			valid=1
+		else
+			printf "Error! "
+		fi	
+	done
+	valid=0
+	while [[ $valid == 0 ]]; do
+		read -p "Please enter a number:" num1
+		echo $num1
+		if [[ $num1 == ":q" ]]; then
+			echo Thanks for using my calculator; exit 1
+		elif [[ $num1 =~ ^-?[0-9]+$ ]]; then
+			valid=1
+		else
+			printf "Error! "
+		fi
+	done
+	if [[ $operation == "+" ]]; then
+		total=$(($total + $num1))
+	elif [[ $operation == "-" ]]; then
+		total=$(($total - $num1))
+	elif [[ $operation == "*" ]]; then
+		total=$(($total * $num1))
+	elif [[ $operation == "/" ]]; then
+		total=$(($total / $num1)) 
+	fi
+	echo "Result so far is: ${total}"
 done
-valid=false
-while (valid==false); do
-  echo "Enter a number: "; read num2
-  if [[ $num2 == ?(-)+([0-9]) ]]; then
-    echo "is a number"; valid=true
-  fi
-done
-echo "Thanks for using my calculator!"
