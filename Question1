@@ -1,5 +1,4 @@
 #!/bin/bash
-run=1
 total=0
 valid=0
 while [[ $valid == 0 ]]; do
@@ -13,7 +12,7 @@ while [[ $valid == 0 ]]; do
 		printf "Error! "
 	fi
 done
-while [[ $run == "1" ]]; do
+while true; do
 	valid=0
 	while [[ $valid == 0 ]]; do
 		read -p "Please enter an operation:" operation
